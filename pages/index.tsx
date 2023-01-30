@@ -1,11 +1,14 @@
 import Layout from '@/components/base/layout';
+import UrlInputGroup from '@/components/ui/urlInputGroup';
 import { GetServerSideProps } from 'next';
-import { getSession, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 
 export default function Page() {
-  const { data: session, status } = useSession();
-
-  return <Layout>{!session && <p>Not signed</p>}</Layout>;
+  return (
+    <Layout>
+      <UrlInputGroup header='Welcome!!' />
+    </Layout>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

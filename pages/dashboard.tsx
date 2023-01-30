@@ -1,24 +1,23 @@
 import Layout from '@/components/base/layout';
+import TableOfUrls from '@/components/ui/tableOfUrls';
+import UrlInputGroup from '@/components/ui/urlInputGroup';
+import { User } from '@prisma/client';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 
-const Dashboard = () => {
+type Props = {
+  user: User;
+};
+
+const Dashboard = ({ user }: Props) => {
   return (
     <Layout>
-      <div className='mx-auto w-max absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-        <div className='form-control'>
-          <label className='input-group'>
-            <input
-              type='text'
-              placeholder='http://example.com'
-              className='md:w-96 input input-bordered'
-            />
-            <span>Add URL</span>
-          </label>
-        </div>
-        <div>
-          <ul className='my-5'>{}</ul>
-        </div>
+      <div className='w-max absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 mx-auto'>
+        <UrlInputGroup
+          user={user}
+          header={`Welcome ${user?.name ? user.name : '!!'}`}
+        />
+        <TableOfUrls />
       </div>
     </Layout>
   );
@@ -26,6 +25,11 @@ const Dashboard = () => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
+  let user;
+  if (session) {
+    user = session.user;
+  }
+
   if (!session) {
     return {
       redirect: {
@@ -34,7 +38,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
-  return { props: { session: session } };
+
+  return { props: { user: user } };
 };
 
 export default Dashboard;
