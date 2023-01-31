@@ -1,6 +1,8 @@
+import { urlParesAtom } from '@/atoms';
 import { UrlPare } from '@prisma/client';
+import { useAtom } from 'jotai';
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const TableOfUrls = () => {
   const session = useSession();
@@ -8,11 +10,26 @@ const TableOfUrls = () => {
   const handleClick = async (pare: UrlPare) => {
     await fetch('/api/deletepare', {
       method: 'POST',
-      body: '',
+      body: JSON.stringify({
+        id: pare.id,
+      }),
     });
+
+    fetch('/api/getallurls', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: session.data?.user?.email,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('data: ', data);
+        return setUrlPares(data);
+      });
   };
 
-  const [urlPares, setUrlPares] = useState<UrlPare[]>([]);
+  const [urlPares, setUrlPares] = useAtom(urlParesAtom);
+
   useEffect(() => {
     fetch('/api/getallurls', {
       method: 'POST',

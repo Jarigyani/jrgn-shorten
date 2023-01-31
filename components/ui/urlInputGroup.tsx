@@ -1,3 +1,6 @@
+import { urlParesAtom } from '@/atoms';
+import { useAtom } from 'jotai';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
 type Props = {
@@ -12,6 +15,9 @@ type Props = {
 };
 
 const UrlInputGroup = ({ user, header }: Props) => {
+  const session = useSession();
+  const [urlPares, setUrlPares] = useAtom(urlParesAtom);
+
   const [text, setText] = useState('');
   const handleClick = async () => {
     await fetch('/api/createurl', {
@@ -22,6 +28,18 @@ const UrlInputGroup = ({ user, header }: Props) => {
       }),
     });
     setText('');
+
+    fetch('/api/getallurls', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: session.data?.user?.email,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('data: ', data);
+        return setUrlPares(data);
+      });
   };
   return (
     <div>
