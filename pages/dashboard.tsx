@@ -22,6 +22,8 @@ const Dashboard = ({ sUser }: Props) => {
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
   useEffect(() => {
     setUser(sUser);
+    console.log(user);
+
     if (user?.email) {
       fetch('/api/getallurls', {
         method: 'POST',
@@ -35,7 +37,7 @@ const Dashboard = ({ sUser }: Props) => {
           return setUrlPares(data);
         });
     }
-  }, [sUser, setUrlPares, setUser, user?.email]);
+  }, [sUser, setUrlPares, setUser, user, user?.email]);
 
   return (
     <Layout>
