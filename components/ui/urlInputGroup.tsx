@@ -37,7 +37,7 @@ const UrlInputGroup = ({ user, header }: Props) => {
     fetch('/api/getallurls', {
       method: 'POST',
       body: JSON.stringify({
-        email: session.data?.user?.email,
+        email: user?.email,
       }),
     })
       .then((res) => res.json())
