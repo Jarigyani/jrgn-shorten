@@ -33,7 +33,7 @@ const Dashboard = ({ sUser }: Props) => {
         if (data.error) return console.log(data.error);
         return setUrlPares(data);
       });
-  }, []);
+  }, [sUser, setUrlPares, setUser, user?.email]);
 
   return (
     <Layout>
