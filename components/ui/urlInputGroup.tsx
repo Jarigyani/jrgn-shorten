@@ -1,19 +1,13 @@
-import { urlParesAtom } from '@/atoms';
+import { urlParesAtom, userAtom } from '@/atoms';
 import { useAtom } from 'jotai';
 import { useState } from 'react';
 
 type Props = {
-  user?:
-    | {
-        name?: string | null | undefined;
-        email?: string | null | undefined;
-        image?: string | null | undefined;
-      }
-    | undefined;
   header: string;
 };
 
-const UrlInputGroup = ({ user, header }: Props) => {
+const UrlInputGroup = ({ header }: Props) => {
+  const [user, setUser] = useAtom(userAtom);
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
 
   const [text, setText] = useState('');
@@ -40,7 +34,6 @@ const UrlInputGroup = ({ user, header }: Props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('data: ', data);
         return setUrlPares(data);
       });
   };

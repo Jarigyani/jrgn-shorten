@@ -1,21 +1,12 @@
-import { urlParesAtom } from '@/atoms';
+import { urlParesAtom, userAtom } from '@/atoms';
 import { UrlPare } from '@prisma/client';
 import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { MouseEvent } from 'react';
 import { HiOutlineClipboardCopy } from 'react-icons/hi';
 
-type Props = {
-  user?:
-    | {
-        name?: string | null | undefined;
-        email?: string | null | undefined;
-        image?: string | null | undefined;
-      }
-    | undefined;
-};
-
-const TableOfUrls = ({ user }: Props) => {
+const TableOfUrls = () => {
+  const [user, setUser] = useAtom(userAtom);
   const handleClick = async (pare: UrlPare) => {
     await fetch('/api/deletepare', {
       method: 'POST',
