@@ -65,7 +65,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  return { props: { user: user } };
+  return { props: { sUser: user } };
 };
 
 export default Dashboard;
