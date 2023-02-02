@@ -1,6 +1,6 @@
 import { urlParesAtom } from '@/atoms';
 import { useAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type Props = {
   user?:
@@ -44,23 +44,6 @@ const UrlInputGroup = ({ user, header }: Props) => {
         return setUrlPares(data);
       });
   };
-  useEffect(() => {
-    try {
-      fetch('/api/getallurls', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: user?.email,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.error) return console.log(data.error);
-          return setUrlPares(data);
-        });
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
 
   return (
     <div>

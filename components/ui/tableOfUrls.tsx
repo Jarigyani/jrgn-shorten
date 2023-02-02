@@ -2,7 +2,7 @@ import { urlParesAtom } from '@/atoms';
 import { UrlPare } from '@prisma/client';
 import { useAtom } from 'jotai';
 import Link from 'next/link';
-import { MouseEvent, useEffect } from 'react';
+import { MouseEvent } from 'react';
 import { HiOutlineClipboardCopy } from 'react-icons/hi';
 
 type Props = {
@@ -45,23 +45,6 @@ const TableOfUrls = ({ user }: Props) => {
 
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
 
-  useEffect(() => {
-    try {
-      fetch('/api/getallurls', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: user?.email,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.error) return console.log(data.error);
-          return setUrlPares(data);
-        });
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
   return (
     <div className='overflow-x-auto'>
       <table className='table w-full'>
