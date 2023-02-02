@@ -48,7 +48,7 @@ const TableOfUrls = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          if (data.error) return;
+          if (data.error) return console.log(data.error);
           return setUrlPares(data);
         });
     } catch (e) {
