@@ -16,11 +16,7 @@ export default NextAuth({
   callbacks: {
     async signIn({ account, profile, user }) {
       console.log(user);
-      if (account?.provider === 'google') {
-        return true;
-      } else {
-        return false;
-      }
+      return true;
     },
   },
 });
