@@ -39,18 +39,21 @@ const TableOfUrls = () => {
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
 
   useEffect(() => {
-    // if (!session.data) return;
-    fetch('/api/getallurls', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: session.data?.user?.email,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) return;
-        return setUrlPares(data);
-      });
+    try {
+      fetch('/api/getallurls', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: session.data?.user?.email,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) return;
+          return setUrlPares(data);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   }, []);
   return (
     <div className='overflow-x-auto'>
