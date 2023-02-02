@@ -22,17 +22,19 @@ const Dashboard = ({ sUser }: Props) => {
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
   useEffect(() => {
     setUser(sUser);
-    fetch('/api/getallurls', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: user?.email,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) return console.log(data.error);
-        return setUrlPares(data);
-      });
+    if (user?.email) {
+      fetch('/api/getallurls', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: user?.email,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) return console.log(data.error);
+          return setUrlPares(data);
+        });
+    }
   }, [sUser, setUrlPares, setUser, user?.email]);
 
   return (
