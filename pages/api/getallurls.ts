@@ -6,6 +6,8 @@ export default async function getallurls(
   res: NextApiResponse
 ) {
   const JSONdata = JSON.parse(req.body);
+  if (!JSONdata.email)
+    return res.status(400).json({ error: 'No email provided.' });
   const id = await prisma.user.findFirst({
     where: {
       email: JSONdata.email,

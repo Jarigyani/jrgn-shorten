@@ -6,8 +6,26 @@ export default async function createUrl(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const randomStr = nanoid(5);
+  let loop = true;
+  let randomStr = nanoid(5);
+  for (; loop; ) {
+    if (
+      await prisma.urlPare.findFirst({
+        where: {
+          id: randomStr,
+        },
+      })
+    ) {
+      randomStr = nanoid(5);
+    } else {
+      loop = false;
+    }
+  }
   const JSONdata = JSON.parse(req.body);
+  let url: string = JSONdata.url;
+  url = url.replace('http://', '');
+  url = url.replace('https://', '');
+
   const user = await prisma.user.findFirst({
     where: {
       email: JSONdata.user.email,
@@ -16,7 +34,7 @@ export default async function createUrl(
   const result = await prisma.urlPare.create({
     data: {
       id: randomStr,
-      url: JSONdata.url as string,
+      url: url,
       userId: user?.id,
     },
   });

@@ -1,6 +1,5 @@
 import Layout from '@/components/base/layout';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
 
 const Id = () => {
   return (
@@ -11,28 +10,21 @@ const Id = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
-  const res = await fetch('localhost:3000/api/getallurl', {
+  let res = await fetch(`${process.env.BASE_FETCH_URL}/api/geturl`, {
     method: 'POST',
     body: JSON.stringify({
-      email: session?.user?.email,
+      id: context.query.id,
     }),
   }).then((res) => res.json());
-  // let res = await fetch(`localhost:3000/api/geturl`, {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     id: context.query.id,
-  //   }),
-  // }).then((res) => res.json());
 
-  // if (res) {
-  //   return {
-  //     redirect: {
-  //       destination: `http://${res.url}`,
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (res) {
+    return {
+      redirect: {
+        destination: `http://${res.url}`,
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {},

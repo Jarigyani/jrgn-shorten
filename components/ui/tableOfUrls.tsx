@@ -2,7 +2,9 @@ import { urlParesAtom } from '@/atoms';
 import { UrlPare } from '@prisma/client';
 import { useAtom } from 'jotai';
 import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import Link from 'next/link';
+import { MouseEvent, useEffect } from 'react';
+import { HiOutlineClipboardCopy } from 'react-icons/hi';
 
 const TableOfUrls = () => {
   const session = useSession();
@@ -28,9 +30,16 @@ const TableOfUrls = () => {
       });
   };
 
+  const handleCopy = (e: MouseEvent<SVGElement, globalThis.MouseEvent>) => {
+    const text =
+      e.currentTarget.parentElement?.parentElement?.children[2].textContent;
+    navigator.clipboard.writeText(text as string);
+  };
+
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
 
   useEffect(() => {
+    // if (!session.data) return;
     fetch('/api/getallurls', {
       method: 'POST',
       body: JSON.stringify({
@@ -39,7 +48,7 @@ const TableOfUrls = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('data: ', data);
+        if (data.error) return;
         return setUrlPares(data);
       });
   }, []);
@@ -48,6 +57,7 @@ const TableOfUrls = () => {
       <table className='table w-full'>
         <thead>
           <tr>
+            <th></th>
             <th></th>
             <th>Generated URL</th>
             <th>Redirect URL</th>
@@ -58,9 +68,19 @@ const TableOfUrls = () => {
           {urlPares.map((pare) => (
             <tr key={pare.id}>
               <th>{urlPares.findIndex((p) => p.id === pare.id) + 1}</th>
-              <td>localhost:3000/{pare.id}</td>
-              <td className=''>
-                <span>http://{pare.url}</span>
+              <td>
+                <HiOutlineClipboardCopy
+                  className='w-5 h-5 cursor-pointer'
+                  onClick={(e) => {
+                    handleCopy(e);
+                  }}
+                />
+              </td>
+              <td>
+                <Link href={`/${pare.id}`}>jrgn.jp/{pare.id}</Link>
+              </td>
+              <td>
+                <span>https://{pare.url}</span>
               </td>
               <td>
                 <button
