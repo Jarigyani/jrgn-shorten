@@ -1,6 +1,5 @@
 import { urlParesAtom } from '@/atoms';
 import { useAtom } from 'jotai';
-import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 type Props = {
@@ -15,7 +14,6 @@ type Props = {
 };
 
 const UrlInputGroup = ({ user, header }: Props) => {
-  const session = useSession();
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
 
   const [text, setText] = useState('');
@@ -51,7 +49,7 @@ const UrlInputGroup = ({ user, header }: Props) => {
       fetch('/api/getallurls', {
         method: 'POST',
         body: JSON.stringify({
-          email: session.data?.user?.email,
+          email: user?.email,
         }),
       })
         .then((res) => res.json())

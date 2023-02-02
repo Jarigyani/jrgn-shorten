@@ -1,14 +1,21 @@
 import { urlParesAtom } from '@/atoms';
 import { UrlPare } from '@prisma/client';
 import { useAtom } from 'jotai';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { MouseEvent, useEffect } from 'react';
 import { HiOutlineClipboardCopy } from 'react-icons/hi';
 
-const TableOfUrls = () => {
-  const session = useSession();
+type Props = {
+  user?:
+    | {
+        name?: string | null | undefined;
+        email?: string | null | undefined;
+        image?: string | null | undefined;
+      }
+    | undefined;
+};
 
+const TableOfUrls = ({ user }: Props) => {
   const handleClick = async (pare: UrlPare) => {
     await fetch('/api/deletepare', {
       method: 'POST',
@@ -20,7 +27,7 @@ const TableOfUrls = () => {
     fetch('/api/getallurls', {
       method: 'POST',
       body: JSON.stringify({
-        email: session.data?.user?.email,
+        email: user?.email,
       }),
     })
       .then((res) => res.json())
@@ -43,7 +50,7 @@ const TableOfUrls = () => {
       fetch('/api/getallurls', {
         method: 'POST',
         body: JSON.stringify({
-          email: session.data?.user?.email,
+          email: user?.email,
         }),
       })
         .then((res) => res.json())
