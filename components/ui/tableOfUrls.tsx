@@ -32,7 +32,7 @@ const TableOfUrls = ({ user }: Props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('data: ', data);
+        if (data.error) return console.log('data: ', data);
         return setUrlPares(data);
       });
   };
