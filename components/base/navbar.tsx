@@ -10,7 +10,7 @@ const Navbar = () => {
             href={'/'}
             className='text-md md:text-3xl btn btn-ghost normal-case'
           >
-            Jarigyani shorten 🍤
+            Jarigyani shorten 🦞
           </Link>
           <SigninButton />
         </div>
