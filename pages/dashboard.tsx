@@ -40,7 +40,7 @@ const Dashboard = ({ sUser }: Props) => {
   }, [sUser, setUrlPares, setUser, user, user?.email]);
 
   return (
-    <Layout>
+    <Layout title='Dashboard'>
       <div className='w-max absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 mx-auto'>
         <UrlInputGroup header={`Welcome ${user?.name ? user.name : '!!'}`} />
         <TableOfUrls />

@@ -6,7 +6,7 @@ import { getSession } from 'next-auth/react';
 
 export default function Page() {
   return (
-    <Layout>
+    <Layout title='Home'>
       <div className='w-max absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 mx-auto'>
         <UrlInputGroup header='Welcome!!' />
         <TableOfUrls />

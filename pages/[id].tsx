@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 
 const Id = () => {
   return (
-    <Layout>
+    <Layout title='Not Found'>
       <h1 className='text-6xl'>Not Found</h1>
     </Layout>
   );
