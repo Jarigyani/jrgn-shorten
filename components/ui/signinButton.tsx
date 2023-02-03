@@ -1,4 +1,5 @@
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { FcGoogle } from 'react-icons/fc';
 
 const SigninButton = () => {
   const { data: session } = useSession();
@@ -7,12 +8,13 @@ const SigninButton = () => {
     <>
       {!session && (
         <button
-          className='btn'
+          className='btn normal-case'
           onClick={() => {
             signIn('google');
           }}
         >
-          Sign in
+          <FcGoogle className='inline w-5 h-5' />
+          <pre> Sign in</pre>
         </button>
       )}
       {session && (

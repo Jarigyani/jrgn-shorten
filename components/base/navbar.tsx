@@ -8,9 +8,9 @@ const Navbar = () => {
         <div className='flex justify-between my-2 max-w-[1440px] mx-auto px-5'>
           <Link
             href={'/'}
-            className='text-md md:text-3xl btn btn-ghost normal-case'
+            className='text-md md:text-3xl cursor-default normal-case'
           >
-            Jarigyani shorten 🦞
+            Jarigyani 🦞
           </Link>
           <SigninButton />
         </div>
