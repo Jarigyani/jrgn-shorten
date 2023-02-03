@@ -3,7 +3,6 @@ import Layout from '@/components/base/layout';
 import TableOfUrls from '@/components/ui/tableOfUrls';
 import UrlInputGroup from '@/components/ui/urlInputGroup';
 import { SessionUser } from '@/types/types';
-import GetAllUsers from '@/utils/getAllUsers';
 import { useAtom } from 'jotai';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -17,21 +16,21 @@ const Dashboard = ({ sUser }: Props) => {
   const [user, setUser] = useAtom(userAtom);
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
   useEffect(() => {
-    GetAllUsers({ sUser });
-    // setUser(sUser);
-    // if (user?.email) {
-    //   fetch('/api/getallurls', {
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //       email: user?.email,
-    //     }),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       if (data.error) return console.log(data.error);
-    //       return setUrlPares(data);
-    //     });
-    // }
+    // GetAllUsers({ sUser });
+    setUser(sUser);
+    if (user?.email) {
+      fetch('/api/getallurls', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: user?.email,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) return console.log(data.error);
+          return setUrlPares(data);
+        });
+    }
   }, [sUser, setUrlPares, setUser, user, user?.email]);
 
   return (
