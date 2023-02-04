@@ -13,9 +13,10 @@ const Layout = ({ title, children }: Props) => {
         <title>{title}</title>
       </Head>
       <main>
-        {/* <div className='bg-mainbg bg-fixed bg-cover'> */}
-        <Navbar />
-        <div className='min-h-screen max-w-[1440px] mx-auto'>{children}</div>
+        <div className='bg-mainbg bg-fixed bg-cover'>
+          <Navbar />
+          <div className='min-h-screen max-w-[1440px] mx-auto'>{children}</div>
+        </div>
       </main>
     </>
   );
