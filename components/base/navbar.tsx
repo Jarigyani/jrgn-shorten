@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import JariSvg from '../ui/jariSvg';
 import SigninButton from '../ui/signinButton';
 
 const Navbar = () => {
@@ -10,7 +11,8 @@ const Navbar = () => {
             href={'/'}
             className='text-white text-3xl cursor-default normal-case font-bold py-2'
           >
-            jrgn.jp 🦞
+            jrgn.jp
+            <JariSvg className='inline stroke-white w-6 ml-2' />
           </Link>
           <SigninButton />
         </div>
