@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Navbar from './navbar';
 
 type Props = {
   title: string;
@@ -11,8 +12,10 @@ const Layout = ({ title, children }: Props) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <main className='min-h-screen mt-16 max-w-[1440px] mx-auto px-5'>
-        {children}
+      <main>
+        {/* <div className='bg-mainbg bg-fixed bg-cover'> */}
+        <Navbar />
+        <div className='min-h-screen max-w-[1440px] mx-auto'>{children}</div>
       </main>
     </>
   );

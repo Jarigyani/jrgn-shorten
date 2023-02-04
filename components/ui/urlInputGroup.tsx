@@ -39,11 +39,11 @@ const UrlInputGroup = ({ header }: Props) => {
   };
 
   return (
-    <div>
+    <>
       <h1 className='mb-5 text-xl md:text-4xl font-bold text-center'>
         {header}
       </h1>
-      <div className='mb-5 mx-auto w-max form-control'>
+      <div className='mb-5 mx-auto form-control'>
         <label className='input-group'>
           <input
             type='text'
@@ -60,12 +60,12 @@ const UrlInputGroup = ({ header }: Props) => {
           <input
             type='button'
             className='btn normal-case'
-            value='Generate'
+            value='Add'
             onClick={handleClick}
           />
         </label>
       </div>
-    </div>
+    </>
   );
 };
 

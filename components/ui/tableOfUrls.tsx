@@ -37,15 +37,15 @@ const TableOfUrls = () => {
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
 
   return (
-    <div className='overflow-x-auto'>
-      <table className='table w-full'>
+    <div className='overflow-x-scroll'>
+      <table className='mx-auto table text-center table-zebra'>
         <thead>
           <tr>
-            <th></th>
-            <th></th>
+            <th>No.</th>
+            <th>Copy</th>
             <th>Generated URL</th>
             <th>Redirect URL</th>
-            <th></th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
