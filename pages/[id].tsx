@@ -4,7 +4,9 @@ import { GetServerSideProps } from 'next';
 const Id = () => {
   return (
     <Layout title='Not Found'>
-      <h1 className='text-6xl'>Not Found</h1>
+      <div className='h-max my-auto absolute top-0 bottom-0 left-0 right-0 m-auto px-2 text-center text-white'>
+        <h1 className='text-6xl font-bold'>URL Not Found</h1>
+      </div>
     </Layout>
   );
 };
