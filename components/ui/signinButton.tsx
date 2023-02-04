@@ -13,8 +13,8 @@ const SigninButton = () => {
             signIn('google');
           }}
         >
-          <FcGoogle className='inline w-5 h-5' />
-          <pre> Sign in</pre>
+          <FcGoogle className='inline w-5 h-5 mr-2' />
+          <span>Sign in</span>
         </button>
       )}
       {session && (
