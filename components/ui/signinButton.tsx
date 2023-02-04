@@ -8,7 +8,7 @@ const SigninButton = () => {
     <>
       {!session && (
         <button
-          className='btn normal-case'
+          className='btn'
           onClick={() => {
             signIn('google');
           }}
