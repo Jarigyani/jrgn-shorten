@@ -11,7 +11,7 @@ export default function Page() {
         <p className='text-white mb-5 md:text-2xl'>
           This is a very simple, single-function URL shortening service
         </p>
-        <h2 className='text-white inline md:text-2xl'>
+        <h2 className='text-white inline md:text-2xl mr-2'>
           Please sign in to use 👉
         </h2>
         <SigninButton />

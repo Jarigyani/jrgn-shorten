@@ -1,5 +1,6 @@
 import { urlParesAtom, userAtom } from '@/atoms';
 import Layout from '@/components/base/layout';
+import DeleteCheckModal from '@/components/ui/deleteCheckModal';
 import TableOfUrls from '@/components/ui/tableOfUrls';
 import UrlInputGroup from '@/components/ui/urlInputGroup';
 import { SessionUser } from '@/types/types';
@@ -36,6 +37,7 @@ const Dashboard = ({ sUser }: Props) => {
   return (
     <Layout title='Dashboard'>
       <div className='h-max my-auto absolute top-0 bottom-0 left-0 right-0 m-auto px-2'>
+        <DeleteCheckModal />
         <div className='justify-center flex flex-col'>
           <UrlInputGroup />
           <TableOfUrls />
