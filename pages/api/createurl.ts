@@ -6,9 +6,8 @@ export default async function createUrl(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  let loop = true;
   let randomStr = nanoid(5);
-  for (; loop; ) {
+  for (let loop = true; loop; ) {
     if (
       await prisma.urlPare.findFirst({
         where: {

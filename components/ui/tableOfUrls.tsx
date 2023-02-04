@@ -17,7 +17,7 @@ const TableOfUrls = () => {
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
 
   return (
-    <div className='overflow-x-scroll'>
+    <>
       <table className='mx-auto table text-center table-zebra'>
         <thead>
           <tr>
@@ -53,7 +53,7 @@ const TableOfUrls = () => {
           ))}
         </tbody>
       </table>
-    </div>
+    </>
   );
 };
 
