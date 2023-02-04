@@ -1,23 +1,28 @@
-import { urlParesAtom, userAtom } from '@/atoms';
+import { urlParesAtom } from '@/atoms';
 import { useAtom } from 'jotai';
 import Link from 'next/link';
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
 import { HiOutlineClipboardCopy } from 'react-icons/hi';
 import DeleteButton from './deleteButton';
 
 const TableOfUrls = () => {
-  const [user, setUser] = useAtom(userAtom);
+  const [copy, setCopy] = useState('copy');
 
   const handleCopy = (e: MouseEvent<SVGElement, globalThis.MouseEvent>) => {
     const text =
-      e.currentTarget.parentElement?.parentElement?.children[2].textContent;
+      e.currentTarget.parentElement?.parentElement?.parentElement?.children[2]
+        .textContent;
     navigator.clipboard.writeText(text as string);
+    setCopy('copied!');
+    setTimeout(() => {
+      setCopy('copy');
+    }, 2000);
   };
 
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
 
   return (
-    <div className='overflow-x-scroll hidden-scrollbar'>
+    <div className='overflow-x-scroll hidden-scrollbar drop-shadow-md'>
       <table className='mx-auto table text-center table-zebra'>
         <thead>
           <tr>
@@ -33,12 +38,19 @@ const TableOfUrls = () => {
             <tr key={pare.id}>
               <th>{urlPares.findIndex((p) => p.id === pare.id) + 1}</th>
               <td>
-                <HiOutlineClipboardCopy
-                  className='w-5 h-5 cursor-pointer'
-                  onClick={(e) => {
-                    handleCopy(e);
-                  }}
-                />
+                <div
+                  className={`tooltip ${
+                    copy === 'copied!' && 'tooltip-success'
+                  }`}
+                  data-tip={copy}
+                >
+                  <HiOutlineClipboardCopy
+                    className='w-5 h-5 cursor-pointer'
+                    onClick={(e) => {
+                      handleCopy(e);
+                    }}
+                  />
+                </div>
               </td>
               <td>
                 <Link href={`/${pare.id}`}>jrgn.jp/{pare.id}</Link>

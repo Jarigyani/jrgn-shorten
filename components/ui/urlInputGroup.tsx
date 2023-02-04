@@ -2,11 +2,7 @@ import { urlParesAtom, userAtom } from '@/atoms';
 import { useAtom } from 'jotai';
 import { useState } from 'react';
 
-type Props = {
-  header: string;
-};
-
-const UrlInputGroup = ({ header }: Props) => {
+const UrlInputGroup = () => {
   const [user, setUser] = useAtom(userAtom);
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
 
@@ -41,9 +37,15 @@ const UrlInputGroup = ({ header }: Props) => {
   return (
     <>
       <h1 className='text-white mb-5 text-xl md:text-4xl font-bold text-center'>
-        {header}
+        Welcome
+        <span className='avatar ml-3 mr-1 align-middle underline'>
+          <div className='w-8 md:w-12 rounded-full drop-shadow-lg'>
+            <img src={user?.image as string} alt='avater' />
+          </div>
+          {user?.name}
+        </span>
       </h1>
-      <div className='mb-5 mx-auto form-control'>
+      <div className='mb-5 mx-auto form-control drop-shadow-md'>
         <label className='input-group'>
           <input
             type='text'
