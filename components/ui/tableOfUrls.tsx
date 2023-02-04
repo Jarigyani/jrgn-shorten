@@ -1,32 +1,12 @@
 import { urlParesAtom, userAtom } from '@/atoms';
-import { UrlPare } from '@prisma/client';
 import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { MouseEvent } from 'react';
 import { HiOutlineClipboardCopy } from 'react-icons/hi';
+import DeleteButton from './deleteButton';
 
 const TableOfUrls = () => {
   const [user, setUser] = useAtom(userAtom);
-  const handleClick = async (pare: UrlPare) => {
-    await fetch('/api/deletepare', {
-      method: 'POST',
-      body: JSON.stringify({
-        id: pare.id,
-      }),
-    });
-
-    fetch('/api/getallurls', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: user?.email,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) return console.log('data: ', data);
-        return setUrlPares(data);
-      });
-  };
 
   const handleCopy = (e: MouseEvent<SVGElement, globalThis.MouseEvent>) => {
     const text =
@@ -67,14 +47,7 @@ const TableOfUrls = () => {
                 <span>https://{pare.url}</span>
               </td>
               <td>
-                <button
-                  className='btn btn-error'
-                  onClick={() => {
-                    handleClick(pare);
-                  }}
-                >
-                  Delete
-                </button>
+                <DeleteButton pare={pare} />
               </td>
             </tr>
           ))}
