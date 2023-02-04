@@ -35,7 +35,7 @@ const Dashboard = ({ sUser }: Props) => {
 
   return (
     <Layout title='Dashboard'>
-      <div className='absolute w-full top-1/2 px-2 -translate-y-1/2'>
+      <div className='h-max my-auto absolute top-0 bottom-0 left-0 right-0 m-auto px-2'>
         <div className='justify-center flex flex-col'>
           <UrlInputGroup header={`Welcome ${user?.name ? user.name : '!!'}`} />
           <TableOfUrls />
