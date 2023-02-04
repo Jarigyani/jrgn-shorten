@@ -53,7 +53,7 @@ const UrlInputGroup = () => {
           <input
             type='text'
             placeholder='http://example.com'
-            className='md:w-96 input input-bordered'
+            className={`md:w-96 input input-bordered ${loading && 'disabled'}`}
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => {
