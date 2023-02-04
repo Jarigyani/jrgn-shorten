@@ -40,7 +40,7 @@ const UrlInputGroup = ({ header }: Props) => {
 
   return (
     <>
-      <h1 className='mb-5 text-xl md:text-4xl font-bold text-center'>
+      <h1 className='text-white mb-5 text-xl md:text-4xl font-bold text-center'>
         {header}
       </h1>
       <div className='mb-5 mx-auto form-control'>
