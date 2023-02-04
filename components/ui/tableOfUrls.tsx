@@ -56,7 +56,12 @@ const TableOfUrls = () => {
                 <Link href={`/${pare.id}`}>jrgn.jp/{pare.id}</Link>
               </td>
               <td>
-                <span>https://{pare.url}</span>
+                <span>
+                  https://
+                  {pare.url.length >= 20
+                    ? `${pare.url.slice(0, 20)}...`
+                    : pare.url}
+                </span>
               </td>
               <td>
                 <DeleteButton pare={pare} />

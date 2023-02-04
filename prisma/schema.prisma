@@ -62,7 +62,7 @@ model VerificationToken {
 
 model UrlPare {
 	id        String   @unique
-	url       String
+	url       String   @db.VarChar(1000)
 	createdAt DateTime @default(now())
 	userId    String?
 	user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
