@@ -9,9 +9,9 @@ type Props = {
 const DeleteButton = ({ pare }: Props) => {
   const [url, setUrl] = useAtom(urlAtom);
   return (
-    <div className='overflow-'>
+    <div>
       <label
-        htmlFor='my-modal'
+        htmlFor='delete-check-modal'
         className='btn-error btn'
         onClick={() => {
           setUrl(pare);

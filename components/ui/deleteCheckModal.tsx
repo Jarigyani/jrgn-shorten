@@ -1,10 +1,14 @@
 import { urlAtom, urlParesAtom } from '@/atoms';
 import { useAtom } from 'jotai';
+import { useState } from 'react';
 
 const DeleteCheckModal = () => {
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
   const [pare, setPare] = useAtom(urlAtom);
+  const [loading, setLoading] = useState(false);
+
   const handleClick = async () => {
+    setLoading(true);
     try {
       await fetch('/api/deletepare', {
         method: 'POST',
@@ -17,11 +21,13 @@ const DeleteCheckModal = () => {
       return;
     }
     setUrlPares(urlPares.filter((p) => p.id !== pare?.id));
+    document.getElementById('delete-check-modal')?.click();
+    setLoading(false);
   };
 
   return (
     <>
-      <input type='checkbox' id='my-modal' className='modal-toggle' />
+      <input type='checkbox' id='delete-check-modal' className='modal-toggle' />
       <div className='top-0 modal'>
         <div className='modal-box'>
           <h3 className='font-bold text-lg'>
@@ -32,12 +38,11 @@ const DeleteCheckModal = () => {
             cannot be generated again
           </p>
           <div className='modal-action'>
-            <label htmlFor='my-modal' className='btn'>
+            <label htmlFor='delete-check-modal' className='btn'>
               Cancel
             </label>
             <label
-              htmlFor='my-modal'
-              className='btn btn-error'
+              className={`btn btn-error ${loading && 'loading'}`}
               onClick={handleClick}
             >
               Delete

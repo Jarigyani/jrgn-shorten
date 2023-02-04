@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { urlParesAtom, userAtom } from '@/atoms';
 import { useAtom } from 'jotai';
 import { useState } from 'react';
@@ -5,14 +6,15 @@ import { useState } from 'react';
 const UrlInputGroup = () => {
   const [user, setUser] = useAtom(userAtom);
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
+  const [loading, setLoading] = useState(false);
 
   const [text, setText] = useState('');
   const handleClick = async () => {
     if (urlPares.length >= 5) {
-      return alert(
-        'You can only have 5 URLs at a time. Delete one to add another.'
-      );
+      document.getElementById('pare-limit-modal')?.click();
+      return;
     }
+    setLoading(true);
     await fetch('/api/createurl', {
       method: 'POST',
       body: JSON.stringify({
@@ -22,7 +24,7 @@ const UrlInputGroup = () => {
     });
     setText('');
 
-    fetch('/api/getallurls', {
+    await fetch('/api/getallurls', {
       method: 'POST',
       body: JSON.stringify({
         email: user?.email,
@@ -32,6 +34,7 @@ const UrlInputGroup = () => {
       .then((data) => {
         return setUrlPares(data);
       });
+    setLoading(false);
   };
 
   return (
@@ -59,12 +62,12 @@ const UrlInputGroup = () => {
               }
             }}
           />
-          <input
-            type='button'
-            className='btn normal-case'
-            value='Add'
+          <label
+            className={`btn normal-case ${loading && 'loading'}`}
             onClick={handleClick}
-          />
+          >
+            Add
+          </label>
         </label>
       </div>
     </>

@@ -1,4 +1,4 @@
-import { urlParesAtom } from '@/atoms';
+import { sortedUrlParesAtom } from '@/atoms';
 import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { MouseEvent, useState } from 'react';
@@ -19,7 +19,7 @@ const TableOfUrls = () => {
     }, 2000);
   };
 
-  const [urlPares, setUrlPares] = useAtom(urlParesAtom);
+  const [urlPares, setUrlPares] = useAtom(sortedUrlParesAtom);
 
   return (
     <div className='overflow-x-scroll hidden-scrollbar drop-shadow-md'>
