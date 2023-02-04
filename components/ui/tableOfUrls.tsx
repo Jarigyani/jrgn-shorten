@@ -53,7 +53,9 @@ const TableOfUrls = () => {
                 </div>
               </td>
               <td>
-                <Link href={`/${pare.id}`}>jrgn.jp/{pare.id}</Link>
+                <Link target='_blank' href={`/${pare.id}`}>
+                  jrgn.jp/{pare.id}
+                </Link>
               </td>
               <td>
                 <span>
