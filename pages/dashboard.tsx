@@ -4,22 +4,22 @@ import DeleteCheckModal from '@/components/ui/deleteCheckModal';
 import PareLimitModal from '@/components/ui/pareLimitModal';
 import TableOfUrls from '@/components/ui/tableOfUrls';
 import UrlInputGroup from '@/components/ui/urlInputGroup';
-import { SessionUser } from '@/types/types';
 import { useAtom } from 'jotai';
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-type Props = {
-  sUser: SessionUser;
-};
+const Dashboard = () => {
+  const session = useSession();
+  const router = useRouter();
 
-const Dashboard = ({ sUser }: Props) => {
   const [user, setUser] = useAtom(userAtom);
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
   useEffect(() => {
     // GetAllUsers({ sUser });
-    setUser(sUser);
+    setUser(session.data?.user);
+    if (!session.data?.user) router.replace('/');
+
     if (user?.email) {
       fetch('/api/getallurls', {
         method: 'POST',
@@ -33,7 +33,7 @@ const Dashboard = ({ sUser }: Props) => {
           return setUrlPares(data);
         });
     }
-  }, [sUser, setUrlPares, setUser, user, user?.email]);
+  }, [session.data?.user, setUrlPares, setUser, user, user?.email]);
 
   return (
     <Layout title='Dashboard'>
@@ -47,25 +47,6 @@ const Dashboard = ({ sUser }: Props) => {
       </div>
     </Layout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
-  let user;
-  if (session) {
-    user = session.user;
-  }
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
-
-  return { props: { sUser: user } };
 };
 
 export default Dashboard;

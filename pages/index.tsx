@@ -1,9 +1,19 @@
 import Layout from '@/components/base/layout';
 import SigninButton from '@/components/ui/signinButton';
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function Page() {
+  const session = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session.data?.user) {
+      router.replace('/dashboard');
+    }
+  }, [session, router]);
+
   return (
     <Layout title='jrgn.jp'>
       <div className='w-full absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 mx-auto text-center'>
@@ -19,18 +29,3 @@ export default function Page() {
     </Layout>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
-  if (session) {
-    return {
-      redirect: {
-        destination: '/dashboard',
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: {},
-  };
-};
