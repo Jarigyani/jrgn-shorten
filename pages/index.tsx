@@ -1,4 +1,5 @@
 import Layout from '@/components/base/layout';
+import LoadingAnimation from '@/components/ui/loadingAnimation';
 import SigninButton from '@/components/ui/signinButton';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -18,7 +19,7 @@ export default function Page() {
     <Layout title='jrgn.jp'>
       <div className='w-full absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 mx-auto text-center'>
         {session.status === 'loading' ? (
-          <p className='text-white'>Loading...</p>
+          <LoadingAnimation />
         ) : (
           <>
             <h1 className='text-white text-5xl mb-5 font-bold'>Welcome !!</h1>

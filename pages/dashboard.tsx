@@ -1,13 +1,14 @@
 import { urlParesAtom, userAtom } from '@/atoms';
 import Layout from '@/components/base/layout';
 import DeleteCheckModal from '@/components/ui/deleteCheckModal';
+import LoadingAnimation from '@/components/ui/loadingAnimation';
 import PareLimitModal from '@/components/ui/pareLimitModal';
 import TableOfUrls from '@/components/ui/tableOfUrls';
 import UrlInputGroup from '@/components/ui/urlInputGroup';
 import { useAtom } from 'jotai';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Dashboard = () => {
   const session = useSession();
@@ -15,6 +16,7 @@ const Dashboard = () => {
 
   const [user, setUser] = useAtom(userAtom);
   const [urlPares, setUrlPares] = useAtom(urlParesAtom);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     // GetAllUsers({ sUser });
     setUser(session.data?.user);
@@ -30,6 +32,7 @@ const Dashboard = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.error) return console.log(data.error);
+          setLoading(false);
           return setUrlPares(data);
         });
     }
@@ -43,6 +46,7 @@ const Dashboard = () => {
         <div className='justify-center flex flex-col'>
           <UrlInputGroup />
           <TableOfUrls />
+          {loading && <LoadingAnimation />}
         </div>
       </div>
     </Layout>
