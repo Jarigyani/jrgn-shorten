@@ -10,7 +10,7 @@ const SigninButton = () => {
         <button
           className='btn'
           onClick={() => {
-            signIn('google');
+            signIn('google', { callbackUrl: '/dashboard' });
           }}
         >
           <FcGoogle className='inline w-5 h-5 mr-2' />
@@ -21,7 +21,7 @@ const SigninButton = () => {
         <button
           className='btn'
           onClick={() => {
-            signOut();
+            signOut({ callbackUrl: '/' });
           }}
         >
           Sign out

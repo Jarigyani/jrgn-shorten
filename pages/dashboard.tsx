@@ -33,7 +33,7 @@ const Dashboard = () => {
           return setUrlPares(data);
         });
     }
-  }, [session.data?.user, setUrlPares, setUser, user, user?.email]);
+  }, [router, session.data?.user, setUrlPares, setUser, user, user?.email]);
 
   return (
     <Layout title='Dashboard'>
