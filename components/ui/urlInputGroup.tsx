@@ -32,9 +32,9 @@ const UrlInputGroup = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        return setUrlPares(data);
+        setUrlPares(data);
+        setLoading(false);
       });
-    setLoading(false);
   };
 
   return (
