@@ -10,6 +10,10 @@ const UrlInputGroup = () => {
 
   const [text, setText] = useState('');
   const handleClick = async () => {
+    if (!text) {
+      document.getElementById('empty-modal')?.click();
+      return;
+    }
     if (urlPares.length >= 5) {
       document.getElementById('pare-limit-modal')?.click();
       return;

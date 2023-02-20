@@ -1,6 +1,7 @@
 import { urlParesAtom, userAtom } from '@/atoms';
 import Layout from '@/components/base/layout';
 import DeleteCheckModal from '@/components/ui/deleteCheckModal';
+import EmptyModal from '@/components/ui/emptyModal';
 import LoadingAnimation from '@/components/ui/loadingAnimation';
 import PareLimitModal from '@/components/ui/pareLimitModal';
 import TableOfUrls from '@/components/ui/tableOfUrls';
@@ -42,6 +43,7 @@ const Dashboard = () => {
     <Layout title='Dashboard'>
       <div className='h-max my-auto absolute top-0 bottom-0 left-0 right-0 m-auto px-2'>
         <PareLimitModal />
+        <EmptyModal />
         <DeleteCheckModal />
         <div className='justify-center flex flex-col'>
           <UrlInputGroup />
