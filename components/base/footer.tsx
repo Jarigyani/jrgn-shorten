@@ -22,7 +22,7 @@ const Footer = () => {
       <div>
         <span className='text-lg text-slate-500'>Social</span>
         <div className='grid grid-flow-col gap-4'>
-          <a href='https://github.com/Jarigyani'>
+          <a href='https://github.com/Jarigyani/jrgn-shorten'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 16 16'
